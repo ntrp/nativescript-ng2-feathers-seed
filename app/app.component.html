@@ -1,0 +1,3 @@
+<StackLayout>
+    <Label *ngFor="let message of _messages | async" [text]="message.text"></Label>
+</StackLayout>
