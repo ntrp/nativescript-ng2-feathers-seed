@@ -7,7 +7,8 @@ var core_1 = require('@angular/core');
 var nativescript_socketio_1 = require('nativescript-socketio');
 var RxJS = require('rxjs');
 var FeathersService = (function () {
-    function FeathersService() {
+    function FeathersService(zone) {
+        this.zone = zone;
         this.socket = new nativescript_socketio_1.SocketIO('http://localhost:3030', null);
         this.socket.connect();
         this.app = feathers()
@@ -20,7 +21,7 @@ var FeathersService = (function () {
     };
     FeathersService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [core_1.NgZone])
     ], FeathersService);
     return FeathersService;
 }());

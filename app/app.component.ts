@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {Observable} from 'rxjs';
 import {FeathersService} from './feathers.service';
 
@@ -6,17 +6,21 @@ import {FeathersService} from './feathers.service';
     selector: "app",
     templateUrl: "app.component.html",
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
     private _messagesService: any;
     private _messages: Observable<any>;
 
-    constructor(private FeathersService: FeathersService) {
+    constructor(private FeathersService: FeathersService,
+                private _ref: ChangeDetectorRef) {
         this._messagesService = this.FeathersService.service('messages');
-        this._messages = this._messagesService.find().map(resp => resp.data);
     }
 
-    diocane() {
-        console.log(this._messages);
+    ngOnInit(): void {
+        this._messagesService.find()
+            .subscribe(resp => {
+                this._messages = resp.data;
+                this._ref.detectChanges();
+            });
     }
 }
