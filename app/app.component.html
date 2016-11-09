@@ -1,3 +1,11 @@
-<StackLayout>
-    <Label *ngFor="let message of _messages" [text]="message.text"></Label>
-</StackLayout>
+<ActionBar title="Messages">
+    <ActionItem (tap)="create()" ios.systemIcon="9" ios.position="left" android.systemIcon="ic_menu_add" android.position="actionBar"></ActionItem>
+</ActionBar>
+<ScrollView>
+    <StackLayout orientation="vertical" class="message-list">
+        <GridLayout rows="auto" columns="*, auto" class="message" *ngFor="let message of _messages">
+            <Label [text]="message.text" col="0"></Label>
+            <Button text="&#xf014;" col="1" class="icon" (tap)="remove(message.id)"></Button>
+        </GridLayout>
+    </StackLayout>
+</ScrollView>
